@@ -1,12 +1,15 @@
 package pe.edu.upc.todocompose.presentation.ui
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +22,8 @@ import pe.edu.upc.todocompose.domain.model.Task
 fun TaskList(
     modifier: Modifier = Modifier,
     tasks: List<Task> = emptyList(),
-    onAdd: () -> Unit = {}
+    onAdd: () -> Unit = {},
+    onDelete: (Int) -> Unit = {}
 ) {
 
 
@@ -37,7 +41,16 @@ fun TaskList(
     ) { padding ->
         LazyColumn(modifier = modifier.padding(padding)) {
             items(tasks) { task ->
-                Text(task.title)
+                Row {
+                    Text(task.title)
+                    IconButton(
+                        onClick = {
+                            onDelete(task.id)
+                        }
+                    ) {
+                        Icon(Icons.Default.Delete, contentDescription = null)
+                    }
+                }
             }
         }
     }

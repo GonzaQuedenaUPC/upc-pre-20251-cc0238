@@ -1,4 +1,4 @@
-package pe.edu.upc.todocompose.ui.theme
+package pe.edu.upc.todocompose.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

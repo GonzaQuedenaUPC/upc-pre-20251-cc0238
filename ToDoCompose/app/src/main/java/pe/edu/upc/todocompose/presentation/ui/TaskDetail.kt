@@ -25,7 +25,8 @@ import pe.edu.upc.todocompose.domain.model.Task
 @Composable
 fun TaskDetail(
     modifier: Modifier = Modifier,
-    onSave: (Task) -> Unit = {}
+    onSave: (Task) -> Unit = {},
+    onBack: () -> Unit = {}
 ) {
 
     val title = remember {
@@ -42,9 +43,11 @@ fun TaskDetail(
             FloatingActionButton(
                 onClick = {
                     val task = Task(
+                        id = (0..999).random(),
                         title = title.value,
                         description = description.value)
                     onSave(task)
+                    onBack()
                 }
             ) {
                 Icon(Icons.Default.Save, contentDescription = null)

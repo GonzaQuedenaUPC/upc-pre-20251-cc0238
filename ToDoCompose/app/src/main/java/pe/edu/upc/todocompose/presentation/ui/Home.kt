@@ -1,33 +1,52 @@
 package pe.edu.upc.todocompose.presentation.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import pe.edu.upc.todocompose.data.repository.TaskRepositoryImpl
 import pe.edu.upc.todocompose.domain.model.Task
+import pe.edu.upc.todocompose.domain.repository.TaskRepository
+import pe.edu.upc.todocompose.domain.usecase.AddTaskUseCase
+import pe.edu.upc.todocompose.domain.usecase.DeleteTaskUseCase
+import pe.edu.upc.todocompose.domain.usecase.GetAllTasksUseCase
 
 @Preview
 @Composable
 fun Home() {
     val navController = rememberNavController()
-    val tasks = emptyList<Task>()
+
+    val repository = TaskRepositoryImpl()
+    val getAllTasksUseCase = GetAllTasksUseCase(repository)
+    val addTaskUseCase = AddTaskUseCase(repository)
+    val deleteTaskUseCase = DeleteTaskUseCase(repository)
+
+    val tasks = getAllTasksUseCase().collectAsState(emptyList())
 
     NavHost(
         navController = navController,
         startDestination = Routes.TaskList.route
     ) {
         composable(Routes.TaskList.route) {
-            TaskList(tasks = tasks) {
-                navController.navigate(Routes.TaskDetail.route)
-            }
+            TaskList(tasks = tasks.value,
+                onAdd = {
+                    navController.navigate(Routes.TaskDetail.route)
+                },
+                onDelete = {
+                    deleteTaskUseCase(it)
+                }
+            )
         }
 
         composable(Routes.TaskDetail.route) {
-            TaskDetail { task ->
-
-                navController.popBackStack()
-            }
+            TaskDetail(
+                onSave = { task -> addTaskUseCase(task)},
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }
