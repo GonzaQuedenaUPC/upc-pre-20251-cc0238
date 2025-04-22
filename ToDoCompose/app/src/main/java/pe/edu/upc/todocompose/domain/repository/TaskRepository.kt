@@ -7,5 +7,5 @@ interface TaskRepository {
     fun getAllTasks(): Flow<List<Task>>
     fun addTask(task: Task)
     fun deleteTask(id: Int)
-    fun updateTask()
+    fun updateTask(task: Task)
 }

@@ -24,7 +24,9 @@ class TaskRepositoryImpl : TaskRepository {
         }
     }
 
-    override fun updateTask() {
-
+    override fun updateTask(task: Task) {
+        _tasks.value = tasks.value.map {
+            if (it.id == task.id) task else it
+        }
     }
 }

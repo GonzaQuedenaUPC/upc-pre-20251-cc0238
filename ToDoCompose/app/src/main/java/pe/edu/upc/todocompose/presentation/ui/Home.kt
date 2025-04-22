@@ -14,6 +14,7 @@ import pe.edu.upc.todocompose.domain.repository.TaskRepository
 import pe.edu.upc.todocompose.domain.usecase.AddTaskUseCase
 import pe.edu.upc.todocompose.domain.usecase.DeleteTaskUseCase
 import pe.edu.upc.todocompose.domain.usecase.GetAllTasksUseCase
+import pe.edu.upc.todocompose.domain.usecase.UpdateTaskUseCase
 
 @Preview
 @Composable
@@ -24,27 +25,43 @@ fun Home() {
     val getAllTasksUseCase = GetAllTasksUseCase(repository)
     val addTaskUseCase = AddTaskUseCase(repository)
     val deleteTaskUseCase = DeleteTaskUseCase(repository)
+    val updateTaskUseCase = UpdateTaskUseCase(repository)
 
     val tasks = getAllTasksUseCase().collectAsState(emptyList())
 
+    val selectedTask = remember {
+        mutableStateOf<Task?>(null)
+    }
     NavHost(
         navController = navController,
         startDestination = Routes.TaskList.route
     ) {
         composable(Routes.TaskList.route) {
-            TaskList(tasks = tasks.value,
+            TaskList(
+                tasks = tasks.value,
                 onAdd = {
+                    selectedTask.value = null
                     navController.navigate(Routes.TaskDetail.route)
                 },
                 onDelete = {
                     deleteTaskUseCase(it)
+                },
+                onSelect = { task ->
+                    selectedTask.value = task
+                    navController.navigate(Routes.TaskDetail.route)
                 }
             )
         }
 
         composable(Routes.TaskDetail.route) {
             TaskDetail(
-                onSave = { task -> addTaskUseCase(task)},
+                task = selectedTask.value,
+                onSave = { task ->
+                    if (selectedTask.value == null)
+                        addTaskUseCase(task)
+                    else
+                        updateTaskUseCase(task)
+                },
                 onBack = { navController.popBackStack() }
             )
         }
