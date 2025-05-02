@@ -1,4 +1,4 @@
-package pe.edu.upc.mealscompose.presentation
+package pe.edu.upc.mealscompose.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,6 +16,18 @@ class CategoryListViewModel(val categoryRepository: CategoryRepository) : ViewMo
     fun getCategories() {
         viewModelScope.launch {
             _categories.value = categoryRepository.getCategories()
+        }
+    }
+
+    fun insertCategory(id: String, name: String) {
+        viewModelScope.launch {
+            categoryRepository.insertCategory(id, name)
+        }
+    }
+
+    fun deleteCategory(id: String, name: String) {
+        viewModelScope.launch {
+            categoryRepository.deleteCategory(id, name)
         }
     }
 }
