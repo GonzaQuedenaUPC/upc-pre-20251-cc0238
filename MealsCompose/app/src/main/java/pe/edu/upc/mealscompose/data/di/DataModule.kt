@@ -1,6 +1,5 @@
 package pe.edu.upc.mealscompose.data.di
 
-import android.content.Context
 import androidx.room.Room
 import pe.edu.upc.mealscompose.MealsApplication
 import pe.edu.upc.mealscompose.data.local.AppDatabase
@@ -27,7 +26,7 @@ object DataModule {
 
     fun getAppDatabase(): AppDatabase {
         return Room.databaseBuilder(
-            MealsApplication.instance,
+            MealsApplication.instance.applicationContext,
             AppDatabase::class.java, "meals-db"
         ).build()
     }

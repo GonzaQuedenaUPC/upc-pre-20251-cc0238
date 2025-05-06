@@ -17,4 +17,7 @@ interface CategoryDao {
 
     @Delete
     suspend fun deleteCategory(categoryEntity: CategoryEntity)
+
+    @Query("select * from categories where id = :id")
+    suspend fun isFavorite(id: String): List<CategoryEntity>
 }
