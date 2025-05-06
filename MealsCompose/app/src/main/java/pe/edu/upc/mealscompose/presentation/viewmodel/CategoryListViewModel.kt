@@ -19,27 +19,31 @@ class CategoryListViewModel(val categoryRepository: CategoryRepository) : ViewMo
         }
     }
 
-    fun toggleFavorite(isFavorite: Boolean, category: Category) {
-        if (isFavorite) {
-            insertCategory(
-                category.id,
-                category.name
-            )
-        } else {
-            deleteCategory(
-                category.id,
-                category.name
-            )
-        }
+     fun toggleFavorite(isFavorite: Boolean, category: Category) {
+         viewModelScope.launch {
+             if (isFavorite) {
+                 insertCategory(
+                     category.id,
+                     category.name
+                 )
+             } else {
+                 deleteCategory(
+                     category.id,
+                     category.name
+                 )
+             }
+             getCategories()
+         }
+
     }
 
-    fun insertCategory(id: String, name: String) {
+     fun insertCategory(id: String, name: String) {
         viewModelScope.launch {
             categoryRepository.insertCategory(id, name)
         }
     }
 
-    fun deleteCategory(id: String, name: String) {
+     fun deleteCategory(id: String, name: String) {
         viewModelScope.launch {
             categoryRepository.deleteCategory(id, name)
         }

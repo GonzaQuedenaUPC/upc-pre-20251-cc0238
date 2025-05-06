@@ -1,5 +1,6 @@
 package pe.edu.upc.mealscompose.presentation.view
 
+import android.view.View
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -45,6 +46,7 @@ fun CategoryListView(
             items(categories.value) { category ->
                 CategoryListItemView(category = category) { isFavorite ->
                     viewModel.toggleFavorite(isFavorite, category)
+
                 }
             }
         }
