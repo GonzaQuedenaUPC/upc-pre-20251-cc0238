@@ -1,6 +1,6 @@
 package pe.edu.upc.mealscompose.data.model
 
-import pe.edu.upc.mealscompose.domain.Category
+import pe.edu.upc.mealscompose.domain.model.Category
 
 object CategoryMapper {
 

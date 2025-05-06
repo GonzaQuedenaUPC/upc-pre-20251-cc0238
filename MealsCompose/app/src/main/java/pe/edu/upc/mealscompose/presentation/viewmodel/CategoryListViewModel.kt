@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import pe.edu.upc.mealscompose.data.repository.CategoryRepository
-import pe.edu.upc.mealscompose.domain.Category
+import pe.edu.upc.mealscompose.domain.model.Category
 
 class CategoryListViewModel(val categoryRepository: CategoryRepository) : ViewModel() {
 

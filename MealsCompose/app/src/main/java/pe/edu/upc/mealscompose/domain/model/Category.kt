@@ -1,4 +1,4 @@
-package pe.edu.upc.mealscompose.domain
+package pe.edu.upc.mealscompose.domain.model
 
 data class Category(
 

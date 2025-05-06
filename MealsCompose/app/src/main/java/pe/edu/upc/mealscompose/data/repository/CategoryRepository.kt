@@ -6,7 +6,7 @@ import pe.edu.upc.mealscompose.data.local.CategoryDao
 import pe.edu.upc.mealscompose.data.model.CategoryEntity
 import pe.edu.upc.mealscompose.data.model.CategoryMapper
 import pe.edu.upc.mealscompose.data.remote.CategoryService
-import pe.edu.upc.mealscompose.domain.Category
+import pe.edu.upc.mealscompose.domain.model.Category
 
 class CategoryRepository(
     val categoryService: CategoryService,

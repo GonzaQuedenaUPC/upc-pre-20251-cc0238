@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import pe.edu.upc.mealscompose.domain.Category
+import pe.edu.upc.mealscompose.domain.model.Category
 import pe.edu.upc.mealscompose.presentation.di.PresentationModule
 import pe.edu.upc.mealscompose.presentation.viewmodel.CategoryListViewModel
 
