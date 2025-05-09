@@ -1,9 +1,9 @@
 package pe.edu.upc.mealscompose.presentation.view
 
-import android.view.View
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -34,22 +34,21 @@ import pe.edu.upc.mealscompose.presentation.viewmodel.CategoryListViewModel
 
 fun CategoryListView(
     modifier: Modifier = Modifier,
-    viewModel: CategoryListViewModel = PresentationModule.getCategoryListViewModel()
+    viewModel: CategoryListViewModel = PresentationModule.getCategoryListViewModel(),
+    onTap: (Category) -> Unit = {}
 ) {
 
     viewModel.getCategories()
 
     val categories = viewModel.categories.collectAsState()
 
-    Scaffold { padding ->
-        LazyColumn(modifier = modifier.padding(padding)) {
-            items(categories.value) { category ->
-                CategoryListItemView(category = category) { isFavorite ->
-                    viewModel.toggleFavorite(isFavorite, category)
-
-                }
+    LazyColumn(modifier = modifier.padding()) {
+        items(categories.value) { category ->
+            CategoryListItemView(category = category, onTap = onTap) { isFavorite ->
+                viewModel.toggleFavorite(isFavorite, category)
             }
         }
+
     }
 
 }
@@ -58,6 +57,7 @@ fun CategoryListView(
 fun CategoryListItemView(
     modifier: Modifier = Modifier,
     category: Category,
+    onTap: (Category) -> Unit,
     onSave: (Boolean) -> Unit
 ) {
 
@@ -65,14 +65,15 @@ fun CategoryListItemView(
         mutableStateOf(category.isFavorite)
     }
 
-    Card(modifier = modifier.padding(8.dp)) {
+    Card(modifier = modifier.padding(8.dp), onClick = { onTap(category) }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             AsyncImage(
                 model = category.poster,
                 contentDescription = null,
+                modifier = modifier.size(96.dp)
 
-                )
+            )
             Column(
                 modifier = modifier
                     .padding(8.dp)
