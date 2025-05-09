@@ -1,6 +1,7 @@
 package pe.edu.upc.mealscompose.presentation.view
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -14,10 +15,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import pe.edu.upc.mealscompose.R
 import pe.edu.upc.mealscompose.domain.model.Category
 
 @Preview
@@ -47,6 +51,10 @@ fun Home() {
                         selected = selectedIndex.value == index,
                         icon = {
                             Icon(item.icon, contentDescription = null)
+                            /* Icon(
+                                 painter = painterResource(id = R.mipmap.ic_favorite),
+                                 contentDescription = null,
+                                 modifier = Modifier.size(36.dp))*/
                         },
                         onClick = {
                             selectedIndex.value = index
